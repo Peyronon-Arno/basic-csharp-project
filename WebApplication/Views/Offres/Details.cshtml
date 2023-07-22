@@ -1,0 +1,93 @@
+﻿@model WebApplication.Models.OffreViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Offre details</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Statut.Libelle)
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Statut.Libelle)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Intitule)
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Intitule)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Date)
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Date)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Salaire)
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Salaire)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Responsable)
+                </dt>
+
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Responsable)
+                </dd>
+
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.Postulations)
+                </dt>
+
+                <dd>
+                    <ul>
+                        @foreach (var item in Model.Postulations)
+                        {
+                            <li>
+                                @Html.DisplayFor(itemModel => item.Employe.Prenom) @Html.DisplayFor(itemModel => item.Employe.Nom)
+                            </li>
+                        }
+                    </ul>
+                </dd>
+            </dl>
+
+            @if (Model.EmployeAPostule(1))
+            {
+                @Html.ActionLink("Postuler", "Postuler", new { id = Model.Id }, new { @class = "btn btn-primary" })
+            }
+            else
+            {
+                <p>Vous avez déjà postulé à cette offre !</p>
+            }
+
+
+        </div>
+    </div>
+
+    <div class="mt-3">
+        @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-secondary" })
+    </div>
+</div>

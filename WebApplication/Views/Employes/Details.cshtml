@@ -1,0 +1,72 @@
+﻿@model WebApplication.Models.EmployeDetailViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="container">
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Employe details</h4>
+            <hr />
+
+            <dl class="row">
+                <dt class="col-sm-3">
+                    Nom
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Nom)
+                </dd>
+
+                <dt class="col-sm-3">
+                    Prenom
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Prenom)
+                </dd>
+
+                <dt class="col-sm-3">
+                    Date de Naissance
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.DateNaissance)
+                </dd>
+
+                <dt class="col-sm-3">
+                    Anciennete
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Anciennete)
+                </dd>
+
+                <dt class="col-sm-3">
+                    Biographie
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Biographie)
+                </dd>
+
+                <dt class="col-sm-3">
+                    Diplome
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.Diplome)
+                </dd>
+
+                <dt class="col-sm-3">
+                    Experiences
+                </dt>
+                <dd class="col-sm-9">
+                    @foreach (var item in Model.Experiences)
+                    {
+                        <p>@Html.DisplayFor(model => item.Intitule)</p>
+                    }
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="mt-3">
+        @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-secondary" })
+    </div>
+</div>

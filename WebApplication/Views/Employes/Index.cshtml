@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Bibliotheque.entity.Employe>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+<h2>Liste des employés</h2>
+
+<form asp-controller="Employes" asp-action="SubmitFilter" method="post" class="mb-3">
+    <div class="input-group">
+        <input type="text" name="SearchString" class="form-control" placeholder="Search..." />
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </div>
+</form>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Nom)</th>
+            <th>@Html.DisplayNameFor(model => model.Prenom)</th>
+            <th>@Html.DisplayNameFor(model => model.DateNaissance)</th>
+            <th>@Html.DisplayNameFor(model => model.Anciennete)</th>
+            <th>@Html.DisplayNameFor(model => model.Biographie)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Nom)</td>
+                <td>@Html.DisplayFor(modelItem => item.Prenom)</td>
+                <td>@Html.DisplayFor(modelItem => item.DateNaissance)</td>
+                <td>@Html.DisplayFor(modelItem => item.Anciennete)</td>
+                <td>@Html.DisplayFor(modelItem => item.Biographie)</td>
+                <td class="action-links">
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,112 @@
+﻿<UserControl x:Class="WPF.view.UserControl1"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WPF.viewmodel"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.DataContext>
+        <local:Manager/>
+    </UserControl.DataContext>
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Master -->
+        <StackPanel>
+            <ComboBox x:Name="comboBox" ItemsSource="{Binding listStatutViewModels}" SelectedItem="{Binding SelectedComboBoxItem}"  />
+            <ListView x:Name="offreListView" Grid.Column="0" SelectionChanged="OffreListView_SelectionChanged" ItemsSource="{Binding OffreViewModels}" SelectedItem="{Binding SelectedOffreViewModel}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Intitule}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
+
+        <!-- Detail -->
+        <Border Grid.Column="1" Background="#F0F0F0">
+            <StackPanel Margin="10">
+                <StackPanel Margin="10">
+                    <TextBlock Text="{Binding ElementName=offreListView, Path=SelectedItem.Intitule}" />
+                    <TextBlock Text="{Binding ElementName=offreListView, Path=SelectedItem.Date}" />
+                    <TextBlock Text="{Binding ElementName=offreListView, Path=SelectedItem.Description}" />
+                    <TextBlock Text="{Binding ElementName=offreListView, Path=SelectedItem.Statut.Libelle}" />
+                    <TextBlock Text="{Binding SelectedOffreViewModel.Salaire, StringFormat=Salaire : {0} €}" />
+                    <TextBlock Text="{Binding ElementName=offreListView, Path=SelectedItem.Responsable}" />
+                </StackPanel>
+
+                <StackPanel Margin="10">
+                    <ItemsControl ItemsSource="{Binding postulants}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock>
+                                        <Run Text="{Binding Nom}" />
+                                        <Run Text=" " />
+                                        <Run Text="{Binding Prenom}" />
+                                    </TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+
+                <Button Command="{Binding ShowModifyPrice}" Content="Modifier"  Tag="{Binding Id}" />
+
+                <StackPanel x:Name="EditPanel" Orientation="Horizontal">
+                    <StackPanel.Style>
+                        <Style TargetType="StackPanel">
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsEditPanelVisible}" Value="True">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+                    <TextBox x:Name="EditTextBox" Text="{Binding EditedPrice, StringFormat=N2, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button Content="OK" Command="{Binding ModifyPrice}" Tag="{Binding Id}" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        <StackPanel  Grid.Column="2">
+            <Button Content="Créer une offre"  Command="{Binding ShowCreerOffre}" />
+            <StackPanel x:Name="CreerOffre" Orientation="Vertical">
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsCreateOffreVisible}" Value="True">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+                    <TextBlock Text="Intitule" />
+                    <TextBox Text="{Binding Intitule}" x:Name="Intitule" />
+
+                    <TextBlock Text="Description" />
+                    <TextBox Text="{Binding Description}" x:Name="Description" />
+
+                    <TextBlock Text="Salaire" />
+                    <TextBox Text="{Binding Salaire}" x:Name="Salaire"/>
+
+                    <TextBlock Text="Statut" />
+                    <TextBox Text="{Binding Status}"  x:Name="Statut"/>
+
+                    <TextBlock Text="Responsable" />
+                    <TextBox Text="{Binding Responsable}" x:Name="Responsable"/>
+
+                <Button Content="Valider" Command="{Binding SubmitCreerOffre}" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

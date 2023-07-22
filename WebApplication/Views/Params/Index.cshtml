@@ -1,0 +1,63 @@
+﻿@model Bibliotheque.entity.Employe
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Mes paramètres</h2>
+
+@using (Html.BeginForm("Save", "Params", FormMethod.Post))
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nom)
+            </th>
+            <td>
+                @Html.EditorFor(model => model.Nom, new { htmlAttributes = new { @class = "form-control" } })
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Prenom)
+            </th>
+            <td>
+                @Html.EditorFor(model => model.Prenom, new { htmlAttributes = new { @class = "form-control" } })
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateNaissance)
+            </th>
+            <td>
+                @Html.EditorFor(model => model.DateNaissance, new { htmlAttributes = new { @class = "form-control" } })
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Anciennete)
+            </th>
+            <td>
+                @Html.EditorFor(model => model.Anciennete, new { htmlAttributes = new { @class = "form-control" } })
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Biographie)
+            </th>
+            <td>
+                @Html.EditorFor(model => model.Biographie, new { htmlAttributes = new { @class = "form-control" } })
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Diplome)
+            </th>
+            <td>
+                @Html.EditorFor(model => model.Diplome, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+            </td>
+        </tr>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+}
